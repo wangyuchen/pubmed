@@ -1,6 +1,6 @@
 .Rproj.user
 .Rhistory
-*.RData
+/*.RData
 /demo_site
 /data_generated
-*.Rproj
+/*.Rproj

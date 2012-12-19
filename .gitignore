@@ -1,6 +1,7 @@
 .Rproj.user
 .Rhistory
 *.RData
+.DS_Store
 pubmed.Rproj
 demo_site
 data_generated

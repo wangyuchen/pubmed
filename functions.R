@@ -100,7 +100,7 @@ locate_coauthor <- function(coauthor) {
   address <- sapply(getNodeSet(root, "//Affiliation"), FUN=xmlValue)
   positions <- t(sapply(address, locate))
   print("located")
-  positions <- matrix(positions[!is.na(positions[ , 1]), ], byrow=TRUE, ncol=2)
+  positions <- matrix(positions[!is.na(positions[ , 1]), ], byrow=T, ncol=2)
   positions <- paste(positions[ , 1], positions[ , 2])
   coordinate <- names(which.max(summary(as.factor(positions))))
   coordinate <- as.numeric(strsplit(coordinate, split=" ")[[1]])

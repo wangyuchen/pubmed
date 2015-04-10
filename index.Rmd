@@ -1,0 +1,37 @@
+```{r echo=FALSE, comment=''}
+load("./data_generated/luokangxian.RData")
+```
+
+Sample Site of ```r print(author)```
+============
+
+Publications
+-----
+```{r echo=FALSE,message=FALSE,results='asis'}
+library(xtable)
+table <- xtable(cbind(personal.info$at, 
+                      paste(personal.info$month, personal.info$year)))
+print(table, type = 'html', include.colnames=FALSE)
+```       
+
+Publication Roles
+-----
+```{r echo=FALSE}
+library(ggplot2)
+pie + coord_polar(theta = "y")
+```         
+    
+Publication Roles with Year
+-----
+```{r echo=FALSE}
+hist_cut + geom_bar()
+```    
+
+
+Locations
+-------
+```{r echo=FALSE, fig.width=13}
+p + geom_point(data=link, 
+             aes(lon,lat,shape=factor(freq), color=factor(freq)), 
+             size=5)
+``` 

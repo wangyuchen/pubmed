@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+
+<!--
+  Google HTML5 slide template
+
+  Authors: Luke Mahé (code)
+           Marcin Wichary (code and design)
+           
+           Dominic Mazzoni (browser compatibility)
+           Charles Chen (ChromeVox support)
+
+  URL: http://code.google.com/p/html5slides/
+-->
+
+<html>
+  <head>
+    <title>Presentation</title>
+
+    <meta charset='utf-8'>
+    <script
+      src='http://html5slides.googlecode.com/svn/trunk/slides.js'></script>
+  </head>
+  
+  <style>
+ .slides article   { background-image:none !important; background-color:white;}
+
+    
+    
+  </style>
+
+  <body style='display: none'>
+
+    <section class='slides layout-regular template-io2011'>
+      
+      <!-- Your slides (<article>s) go here. Delete or comment out the
+           slides below. -->
+        
+        
+   <article>
+  <h1>
+    Data Extraction From Pubmed 
+  </h1>
+  <p>
+    Yuchen Wang
+    <br>
+    Dec 20, 2012
+  </p>
+</article>
+
+<article>
+  <h3>
+   Pubmed
+  </h3>
+  <p>Pubmed seems like a web-based database for articles, but we can also use this database without a web browser.</p>
+<p> It actually identifies query from url. For example, searching for an author called "yuchen" within the web page is equivalent to modifying the url and go to page: "http://www.ncbi.nlm.nih.gov/pubmed?term=yuchen".   
+  </p>
+<p>The returned page will have the first 20 search results by default. It rigidly wraps data into some HTML tags. Once we found such tags in the result page, we found the data we want.</p>
+
+<p>Fortunately, these can all be done in R using RCurl and XML packages without human intervene.</p>
+
+ 
+ 
+</article>
+
+
+<article>
+  <h3>
+    RCurl and XML
+  </h3>
+  <p>RCurl::getForm() is used to combine query terms (such as author name) with base query url and download the result page.
+  </p>
+<p>XML::xmlTreeParse() is used to parse the HTML page into a tree structure.
+</p>
+<p>XML::getNodeSet() can search specific tags  within the tree, and XML::xmlValue() can return the data value within the tags. 
+</p>
+
+<p>By inspecting the HTML page once, you can  make sure what tags contain what. Tag names are always self-explanatory such as Title and Year.</p>
+ 
+</article>
+
+<article>
+  <h3>
+    Geocoding
+  </h3>
+<ul class="build">
+  <li>With those tools, we can get all articles' data related to an author.
+<li>Address data are related to articles too. It's text-based so it's hard to compare such data to get an unique address for an author.
+<li>Geocoding is Google's service for transforming address data into coordinates. The same as searching data in Pubmed, we can search address data in Google Map's database, and get numeric coordinates. 
+<li>Then we use the most frequent coordinates in one's articles as his address.
+</ul>
+</article>
+
+<article>
+  <h3>
+    knitR
+  </h3>
+<ul>
+    <li>knitR is an R package for dynamic report generation. It supports different formats including HTML. We can write an RHTML document with HTML for format markups and R code for contents. Here is an example:
+  <pre>
+&lt;div class="title"&gt;
+  &lt;!--begin.rcode echo=FALSE, comment=''
+  load("./luokangxian.RData")
+  cat(author)
+  end.rcode--&gt;  
+&lt;/div&gt;</pre>
+<li>knitR will evaluate R code within the gray chunk and return it's output in an HTML page, in which the HTML tags will markup the output as page title.
+  </ul>
+</article>
+
+<article>
+  <h3>
+    Problems
+  </h3>
+  <p>After an author is specified, we can extract data, analyze, plot and finally generate HTML page automatically in R. But we still have the following problems.</p>
+<ul>
+    <li>This work flow may include intensive web query task. If we continually query Pubmed's database within a short time, it may not respond. This happens when we need to locate a lot of coauthors.  
+    <li>Geocoding has a limit of 20 queries per time and 2500 per day.
+    <li>The relation map is not elegant. If one has few overseas relation but vary far from his location, the map will be zoomed out and the relations within his country may be hard to identify.
+  </ul>
+
+</article>
+
+<article>
+  <h2>
+    Thank you!
+  </h2>
+<p></p>
+  <ul>
+    <li> see page demo at
+      <a href='http://wangyuchen.github.com/demo'>my blog</a>
+  </ul>
+
+<ul>
+    <li> see this slide 
+      <a href='http://wangyuchen.github.com/demo/slide.html#1'>online</a>
+  </ul>
+  <ul>
+    <li> or contact me by 
+      <a href='mailto:ycwang0712@gmail.com'>email</a>
+  </ul>
+  
+  
+</article>
+
+    </section>
+
+  </body>
+</html>
